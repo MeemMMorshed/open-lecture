@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import "./App.css";
+import SearchPage from "./pages/SearchPage";
 
 function LandingPage() {
   return (
@@ -25,16 +26,6 @@ function LandingPage() {
       <footer className="footer">
         © {new Date().getFullYear()} OpenLecture. CEO Meem Morshed, Unpaid Intern Ricky Nguyen, Unpaid Consultant Noel Walton
       </footer>
-    </div>
-  );
-}
-
-function SearchPage() {
-  return (
-    <div className="search-page">
-      <h2>Search for Empty Rooms</h2>
-      {/* 🔹 Updated link to go back to /home */}
-      <Link to="/landingpage" className="cta-button">⬅ Back to Home</Link>
     </div>
   );
 }
