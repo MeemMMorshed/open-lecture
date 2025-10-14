@@ -4,7 +4,9 @@ import "../App.css";
 
 export default function SearchPage() {
   const [day, setDay] = useState("");
-  const [time, setTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [notification, setNotification] = useState("");
   const [results, setResults] = useState([]);
 
   const mockClassData = [
@@ -24,11 +26,41 @@ export default function SearchPage() {
         { day: "Thursday", start: "13:00", duration: 2 },
       ],
     },
+    {
+      room: "ACW 204",
+      building: "Accolade West",
+      schedule: [
+        { day: "Monday", start: "09:00", duration: 1 },
+        { day: "Wednesday", start: "15:00", duration: 2 },
+        { day: "Friday", start: "10:00", duration: 1.5 },
+      ],
+    },
+    {
+      room: "CC 203",
+      building: "Calumet College",
+      schedule: [
+        { day: "Tuesday", start: "08:30", duration: 1.5 },
+        { day: "Thursday", start: "11:00", duration: 1.5 },
+        { day: "Friday", start: "14:00", duration: 2 },
+      ],
+    },
+    {
+      room: "VLH D",
+      building: "Vari Hall",
+      schedule: [
+        { day: "Monday", start: "11:00", duration: 2 },
+        { day: "Wednesday", start: "09:00", duration: 1 },
+        { day: "Thursday", start: "15:00", duration: 1.5 },
+      ],
+    },
   ];
 
-  function isRoomFree(room, userDay, userTime) {
-    const [userHour, userMinute] = userTime.split(":").map(Number);
-    const userDecimalTime = userHour + userMinute / 60;
+  function isRoomFree(room, userDay, userStart, userEnd) {
+    const [userStartHour, userStartMinute] = userStart.split(":").map(Number);
+    const [userEndHour, userEndMinute] = userEnd.split(":").map(Number);
+
+    const userStartDecimal = userStartHour + userStartMinute / 60;
+    const userEndDecimal = userEndHour + userEndMinute / 60;
 
     for (const session of room.schedule) {
       if (session.day.toLowerCase() === userDay.toLowerCase()) {
@@ -36,7 +68,7 @@ export default function SearchPage() {
         const classStart = classHour + classMinute / 60;
         const classEnd = classStart + session.duration;
 
-        if (userDecimalTime >= classStart && userDecimalTime < classEnd) {
+        if (userStartDecimal < classEnd && userEndDecimal > classStart) {
           return false;
         }
       }
@@ -44,39 +76,54 @@ export default function SearchPage() {
     return true;
   }
 
-  function getNextClass(room, userDay, userTime) {
-    const [userHour, userMinute] = userTime.split(":").map(Number);
-    const userDecimalTime = userHour + userMinute / 60;
+  // function getNextClass(room, userDay, userTime) {
+  //   const [userHour, userMinute] = userTime.split(":").map(Number);
+  //   const userDecimalTime = userHour + userMinute / 60;
 
-    const sameDayClasses = room.schedule.filter(
-      (session) => session.day.toLowerCase() === userDay.toLowerCase()
-    );
+  //   const sameDayClasses = room.schedule.filter(
+  //     (session) => session.day.toLowerCase() === userDay.toLowerCase()
+  //   );
 
-    const nextClass = sameDayClasses.find((session) => {
-      const [classHour, classMinute] = session.start.split(":").map(Number);
-      const classStart = classHour + classMinute / 60;
-      return classStart > userDecimalTime;
-    });
+  //   const nextClass = sameDayClasses.find((session) => {
+  //     const [classHour, classMinute] = session.start.split(":").map(Number);
+  //     const classStart = classHour + classMinute / 60;
+  //     return classStart > userDecimalTime;
+  //   });
 
-    return nextClass
-      ? `Free until ${nextClass.start}`
-      : "Free";
-  }
+  //   return nextClass ? `Free until ${nextClass.start}` : "Free";
+  // }
 
   const handleSearch = () => {
-    if (!day || !time) {
-      alert("Please select both day and time.");
+    if (!day || !startTime || !endTime) {
+      setNotification("Please select both day and time range.");
+      setTimeout(() => setNotification(""), 3000);
       return;
     }
 
     const availableRooms = mockClassData.filter((room) =>
-      isRoomFree(room, day, time)
+      isRoomFree(room, day, startTime, endTime)
     );
     setResults(availableRooms);
+
+    if (availableRooms.length > 0) {
+      setNotification(`✅ Found ${availableRooms.length} available room(s).`);
+    } else {
+      setNotification("❌ No available rooms for that time range.");
+    }
+
+    setTimeout(() => setNotification(""), 3000);
+  };
+
+  const handleClear = () => {
+    setDay("");
+    setStartTime("");
+    setEndTime("");
+    setResults([]);
   };
 
   return (
     <div className="search-page">
+      {notification && <div className="notification-banner">{notification}</div>}
       <h2>Search for Empty Rooms</h2>
 
       <div className="search-form">
@@ -89,21 +136,33 @@ export default function SearchPage() {
           <option>Friday</option>
         </select>
 
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-        />
-        <button className="cta-button" onClick={handleSearch}>
-          Search
-        </button>
+        <div className="time-range">
+          <input
+            type="time"
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+          ></input>
+          <input
+            type="time"
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          />
+          <div className="button-group">
+            <button className="cta-button" onClick={handleSearch}>
+              Search
+            </button>
+            <button className="clear-button" onClick={handleClear}>
+              Clear
+            </button>
+          </div>
+        </div>
       </div>
 
       <ul>
         {results.length > 0 ? (
           results.map((room, index) => (
             <li key={index}>
-              {room.room} - {room.building} - {getNextClass(room, day, time)}
+              {room.room} - {room.building}
             </li>
           ))
         ) : (
