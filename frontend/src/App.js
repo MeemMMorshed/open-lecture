@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
+import SearchPage from "./pages/SearchPage";
 import "./App.css";
 
 // ✅ Navbar Component
