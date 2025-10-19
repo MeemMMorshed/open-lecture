@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 
@@ -9,51 +9,53 @@ export default function SearchPage() {
   const [notification, setNotification] = useState("");
   const [results, setResults] = useState([]);
 
-  const mockClassData = [
-    {
-      room: "CLH A",
-      building: "Curtis Lecture Hall",
-      schedule: [
-        { day: "Monday", start: "15:00", duration: 2 },
-        { day: "Wednesday", start: "17:00", duration: 2 },
-      ],
-    },
-    {
-      room: "LAS C",
-      building: "Lassonde Building",
-      schedule: [
-        { day: "Tuesday", start: "14:00", duration: 1.5 },
-        { day: "Thursday", start: "13:00", duration: 2 },
-      ],
-    },
-    {
-      room: "ACW 204",
-      building: "Accolade West",
-      schedule: [
-        { day: "Monday", start: "09:00", duration: 1 },
-        { day: "Wednesday", start: "15:00", duration: 2 },
-        { day: "Friday", start: "10:00", duration: 1.5 },
-      ],
-    },
-    {
-      room: "CC 203",
-      building: "Calumet College",
-      schedule: [
-        { day: "Tuesday", start: "08:30", duration: 1.5 },
-        { day: "Thursday", start: "11:00", duration: 1.5 },
-        { day: "Friday", start: "14:00", duration: 2 },
-      ],
-    },
-    {
-      room: "VLH D",
-      building: "Vari Hall",
-      schedule: [
-        { day: "Monday", start: "11:00", duration: 2 },
-        { day: "Wednesday", start: "09:00", duration: 1 },
-        { day: "Thursday", start: "15:00", duration: 1.5 },
-      ],
-    },
-  ];
+  // const mockClassData = [
+  //   {
+  //     room: "CLH A",
+  //     building: "Curtis Lecture Hall",
+  //     schedule: [
+  //       { day: "Monday", start: "15:00", duration: 2 },
+  //       { day: "Wednesday", start: "17:00", duration: 2 },
+  //     ],
+  //   },
+  //   {
+  //     room: "LAS C",
+  //     building: "Lassonde Building",
+  //     schedule: [
+  //       { day: "Tuesday", start: "14:00", duration: 1.5 },
+  //       { day: "Thursday", start: "13:00", duration: 2 },
+  //     ],
+  //   },
+  //   {
+  //     room: "ACW 204",
+  //     building: "Accolade West",
+  //     schedule: [
+  //       { day: "Monday", start: "09:00", duration: 1 },
+  //       { day: "Wednesday", start: "15:00", duration: 2 },
+  //       { day: "Friday", start: "10:00", duration: 1.5 },
+  //     ],
+  //   },
+  //   {
+  //     room: "CC 203",
+  //     building: "Calumet College",
+  //     schedule: [
+  //       { day: "Tuesday", start: "08:30", duration: 1.5 },
+  //       { day: "Thursday", start: "11:00", duration: 1.5 },
+  //       { day: "Friday", start: "14:00", duration: 2 },
+  //     ],
+  //   },
+  //   {
+  //     room: "VLH D",
+  //     building: "Vari Hall",
+  //     schedule: [
+  //       { day: "Monday", start: "11:00", duration: 2 },
+  //       { day: "Wednesday", start: "09:00", duration: 1 },
+  //       { day: "Thursday", start: "15:00", duration: 1.5 },
+  //     ],
+  //   },
+  // ];
+
+
 
   function isRoomFree(room, userDay, userStart, userEnd) {
     const [userStartHour, userStartMinute] = userStart.split(":").map(Number);
@@ -93,22 +95,31 @@ export default function SearchPage() {
   //   return nextClass ? `Free until ${nextClass.start}` : "Free";
   // }
 
-  const handleSearch = () => {
+  const handleSearch = async() => {
     if (!day || !startTime || !endTime) {
       setNotification("Please select both day and time range.");
       setTimeout(() => setNotification(""), 3000);
       return;
     }
 
-    const availableRooms = mockClassData.filter((room) =>
-      isRoomFree(room, day, startTime, endTime)
-    );
-    setResults(availableRooms);
+    try {
+      const response = await fetch(`http://localhost:8080/api/courses/available?day=${day}&startTime=${startTime}&endTime=${endTime}`);
+      
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-    if (availableRooms.length > 0) {
-      setNotification(`✅ Found ${availableRooms.length} available room(s).`);
-    } else {
-      setNotification("❌ No available rooms for that time range.");
+      const data = await response.json();
+      setResults(data);
+
+      if (data.length > 0) {
+        setNotification(`✅ Found ${data.length} available room(s).`);
+      } else {
+        setNotification("❌ No available rooms for that time range.");
+      }
+    } catch (error) {
+      console.error("Error fetching available rooms:", error);
+      setNotification("❌ Error fetching available rooms. Please try again later.");
     }
 
     setTimeout(() => setNotification(""), 3000);
@@ -129,11 +140,11 @@ export default function SearchPage() {
       <div className="search-form">
         <select value={day} onChange={(e) => setDay(e.target.value)}>
           <option value="">Select Day</option>
-          <option>Monday</option>
-          <option>Tuesday</option>
-          <option>Wednesday</option>
-          <option>Thursday</option>
-          <option>Friday</option>
+          <option value="M">Monday</option>
+          <option value="T">Tuesday</option>
+          <option value="W">Wednesday</option>
+          <option value="R">Thursday</option>
+          <option value="F">Friday</option>
         </select>
 
         <div className="time-range">
@@ -162,7 +173,7 @@ export default function SearchPage() {
         {results.length > 0 ? (
           results.map((room, index) => (
             <li key={index}>
-              {room.room} - {room.building}
+              {room}
             </li>
           ))
         ) : (

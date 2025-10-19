@@ -16,13 +16,15 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
+    @GetMapping("/available")
+    public List<String> getAvailableROoms(
+            @RequestParam String day,
+            @RequestParam String startTime,
+            @RequestParam String endTime) {
+        return courseService.getAvailableRooms(day, startTime, endTime);
     }
 
-    @GetMapping("/{day}")
-    public List<Course> getCoursesByDay(@PathVariable String day) {
-        return courseService.getCoursesByDay(day);
-    }
+
+
+
 }
