@@ -1,1 +1,12 @@
-com/openlecture/BackendApplication.class
+com\openlecture\repository\UserRepository.class
+com\openlecture\service\CourseService.class
+com\openlecture\model\Course.class
+com\openlecture\controller\CourseController.class
+com\openlecture\BackendApplication.class
+com\openlecture\repository\CourseRepository.class
+com\openlecture\config\SecurityConfig.class
+com\openlecture\controller\AuthController.class
+com\openlecture\model\User$UserBuilder.class
+com\openlecture\model\Course$CourseBuilder.class
+com\openlecture\model\User.class
+com\openlecture\service\AuthService.class
