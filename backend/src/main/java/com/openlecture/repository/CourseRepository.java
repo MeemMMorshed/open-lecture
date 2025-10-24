@@ -13,4 +13,7 @@ import com.openlecture.model.Course;
 public interface CourseRepository extends JpaRepository<Course, Long> {
         @Query("SELECT c FROM Course c WHERE c.day = :day")
         List<Course> findByDay(@Param("day") String day);
+
+        @Query("SELECT c FROM Course c WHERE c.day = :day AND c.room LIKE CONCAT(:building, '%')")
+        List<Course> findByDayAndRoomStartingWith(String day, String building);
 }

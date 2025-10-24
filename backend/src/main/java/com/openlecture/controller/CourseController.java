@@ -1,10 +1,14 @@
 package com.openlecture.controller;
 
-import com.openlecture.model.Course;
-import com.openlecture.service.CourseService;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.openlecture.service.CourseService;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -20,8 +24,9 @@ public class CourseController {
     public List<String> getAvailableROoms(
             @RequestParam String day,
             @RequestParam String startTime,
-            @RequestParam String endTime) {
-        return courseService.getAvailableRooms(day, startTime, endTime);
+            @RequestParam String endTime,
+            @RequestParam(required = false) String building) {
+        return courseService.getAvailableRooms(day, startTime, endTime, building);
     }
 
 

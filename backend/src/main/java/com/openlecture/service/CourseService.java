@@ -2,13 +2,13 @@ package com.openlecture.service;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.openlecture.model.Course;
 import com.openlecture.repository.CourseRepository;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -18,11 +18,12 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public List<String> getAvailableRooms(String day, String startTime, String endTime) {
+    public List<String> getAvailableRooms(String day, String startTime, String endTime, String building) {
         LocalTime start = LocalTime.parse(startTime);
         LocalTime end = LocalTime.parse(endTime);
 
-        List<Course> allCourses = courseRepository.findByDay(day);
+        List<Course> allCourses = (building == null || building.isEmpty()) ? courseRepository.findByDay(day)
+                : courseRepository.findByDayAndRoomStartingWith(day, building);
 
         Set<String> busyRooms = allCourses.stream().filter(course -> {
             LocalTime courseStart = LocalTime.parse(course.getTime());

@@ -6,96 +6,11 @@ export default function SearchPage() {
   const [day, setDay] = useState("");
   const [endTime, setEndTime] = useState("");
   const [startTime, setStartTime] = useState("");
+  const [building, setBuilding] = useState("");
   const [notification, setNotification] = useState("");
   const [results, setResults] = useState([]);
 
-  // const mockClassData = [
-  //   {
-  //     room: "CLH A",
-  //     building: "Curtis Lecture Hall",
-  //     schedule: [
-  //       { day: "Monday", start: "15:00", duration: 2 },
-  //       { day: "Wednesday", start: "17:00", duration: 2 },
-  //     ],
-  //   },
-  //   {
-  //     room: "LAS C",
-  //     building: "Lassonde Building",
-  //     schedule: [
-  //       { day: "Tuesday", start: "14:00", duration: 1.5 },
-  //       { day: "Thursday", start: "13:00", duration: 2 },
-  //     ],
-  //   },
-  //   {
-  //     room: "ACW 204",
-  //     building: "Accolade West",
-  //     schedule: [
-  //       { day: "Monday", start: "09:00", duration: 1 },
-  //       { day: "Wednesday", start: "15:00", duration: 2 },
-  //       { day: "Friday", start: "10:00", duration: 1.5 },
-  //     ],
-  //   },
-  //   {
-  //     room: "CC 203",
-  //     building: "Calumet College",
-  //     schedule: [
-  //       { day: "Tuesday", start: "08:30", duration: 1.5 },
-  //       { day: "Thursday", start: "11:00", duration: 1.5 },
-  //       { day: "Friday", start: "14:00", duration: 2 },
-  //     ],
-  //   },
-  //   {
-  //     room: "VLH D",
-  //     building: "Vari Hall",
-  //     schedule: [
-  //       { day: "Monday", start: "11:00", duration: 2 },
-  //       { day: "Wednesday", start: "09:00", duration: 1 },
-  //       { day: "Thursday", start: "15:00", duration: 1.5 },
-  //     ],
-  //   },
-  // ];
-
-
-
-  function isRoomFree(room, userDay, userStart, userEnd) {
-    const [userStartHour, userStartMinute] = userStart.split(":").map(Number);
-    const [userEndHour, userEndMinute] = userEnd.split(":").map(Number);
-
-    const userStartDecimal = userStartHour + userStartMinute / 60;
-    const userEndDecimal = userEndHour + userEndMinute / 60;
-
-    for (const session of room.schedule) {
-      if (session.day.toLowerCase() === userDay.toLowerCase()) {
-        const [classHour, classMinute] = session.start.split(":").map(Number);
-        const classStart = classHour + classMinute / 60;
-        const classEnd = classStart + session.duration;
-
-        if (userStartDecimal < classEnd && userEndDecimal > classStart) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  // function getNextClass(room, userDay, userTime) {
-  //   const [userHour, userMinute] = userTime.split(":").map(Number);
-  //   const userDecimalTime = userHour + userMinute / 60;
-
-  //   const sameDayClasses = room.schedule.filter(
-  //     (session) => session.day.toLowerCase() === userDay.toLowerCase()
-  //   );
-
-  //   const nextClass = sameDayClasses.find((session) => {
-  //     const [classHour, classMinute] = session.start.split(":").map(Number);
-  //     const classStart = classHour + classMinute / 60;
-  //     return classStart > userDecimalTime;
-  //   });
-
-  //   return nextClass ? `Free until ${nextClass.start}` : "Free";
-  // }
-
-  const handleSearch = async() => {
+  const handleSearch = async () => {
     if (!day || !startTime || !endTime) {
       setNotification("Please select both day and time range.");
       setTimeout(() => setNotification(""), 3000);
@@ -103,8 +18,10 @@ export default function SearchPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/courses/available?day=${day}&startTime=${startTime}&endTime=${endTime}`);
-      
+      const response = await fetch(
+        `http://localhost:8080/api/courses/available?day=${day}&startTime=${startTime}&endTime=${endTime}&building=${building}`
+      );
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -119,7 +36,9 @@ export default function SearchPage() {
       }
     } catch (error) {
       console.error("Error fetching available rooms:", error);
-      setNotification("❌ Error fetching available rooms. Please try again later.");
+      setNotification(
+        "❌ Error fetching available rooms. Please try again later."
+      );
     }
 
     setTimeout(() => setNotification(""), 3000);
@@ -134,10 +53,44 @@ export default function SearchPage() {
 
   return (
     <div className="search-page">
-      {notification && <div className="notification-banner">{notification}</div>}
+      {notification && (
+        <div className="notification-banner">{notification}</div>
+      )}
       <h2>Search for Empty Rooms</h2>
 
       <div className="search-form">
+        <select value={building} onChange={(e) => setBuilding(e.target.value)}>
+          <option value="">All Buildings</option>
+          <option value="ACW">Accolade West</option>
+          <option value="ACE">Accolade East</option>
+          <option value="ATK">Atkinson</option>
+          <option value="BRG">Bergeron Centre</option>
+          <option value="CB">Chemistry Building</option>
+          <option value="CC">Calumet College</option>
+          <option value="CFA">The Joan & Martin Goldfarb Centre</option>
+          <option value="CFT">Centre for Film and Theatre</option>
+          <option value="CLH">Curtis Lecture Hall</option>
+          <option value="CSQ">Central Square</option>
+          <option value="DB">Dahdaleh Building</option>
+          <option value="FC">Founders College</option>
+          <option value="FRQ">Farquharson Life Sciences</option>
+          <option value="HNE">Health, Nursing and Environmental Studies Building</option>
+          <option value="LAS">Lassonde Building</option>
+          <option value="LSB">Life Science Building</option>
+          <option value="LUM">Lumbers Building</option>
+          <option value="MB">McLaughlin College</option>
+          <option value="PSE">Petrie Science and Engineering Building</option>
+          <option value="R">Ross Building</option>
+          <option value="SC">Stong College</option>
+          <option value="SHR">Sherman Health Science Research Centre</option>
+          <option value="SLH">Stedman Lecture Halls</option>
+          <option value="TFC">Track and Field Centre</option>
+          <option value="TM">Tait Mckenzie Centre</option>
+          <option value="VC">Vanier College</option>
+          <option value="VH">Vari Hall</option>
+          <option value="WSC">William Small Centre</option>
+        </select>
+        
         <select value={day} onChange={(e) => setDay(e.target.value)}>
           <option value="">Select Day</option>
           <option value="M">Monday</option>
@@ -171,11 +124,7 @@ export default function SearchPage() {
 
       <ul>
         {results.length > 0 ? (
-          results.map((room, index) => (
-            <li key={index}>
-              {room}
-            </li>
-          ))
+          results.map((room, index) => <li key={index}>{room}</li>)
         ) : (
           <p>No available rooms</p>
         )}
