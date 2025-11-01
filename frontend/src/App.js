@@ -1,9 +1,10 @@
 import React from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
+import LoginPage from "./pages/LoginPage";  
+import SignupPage from "./pages/SignupPage"; 
 import "./App.css";
 
-// ✅ Navbar Component
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -23,7 +24,9 @@ function Navbar() {
       <div style={{ float: "right" }}>
         {user ? (
           <>
-            <span style={{ marginRight: "10px" }}>Welcome, {user.username}</span>
+            <span style={{ marginRight: "10px" }}>
+              Welcome, {user.username}
+            </span>
             <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
@@ -36,7 +39,6 @@ function Navbar() {
   );
 }
 
-// ✅ Landing Page
 function LandingPage() {
   return (
     <div className="app">
@@ -47,20 +49,28 @@ function LandingPage() {
       <main className="hero">
         <h2>Find Empty Lecture Halls at Your University</h2>
         <p>More Universities Coming Soon...</p>
-        <Link to="/search" className="cta-button">York University</Link>
-        <Link to="" className="cta-button1">Coming Soon...</Link>
-        <Link to="" className="cta-button2">Coming Soon...</Link>
-        <Link to="" className="cta-button3">Coming Soon...</Link>
+        <Link to="/search" className="cta-button">
+          York University
+        </Link>
+        <Link to="" className="cta-button1">
+          Coming Soon...
+        </Link>
+        <Link to="" className="cta-button2">
+          Coming Soon...
+        </Link>
+        <Link to="" className="cta-button3">
+          Coming Soon...
+        </Link>
       </main>
 
       <footer className="footer">
-        © {new Date().getFullYear()} OpenLecture. CEO Meem Morshed, Unpaid Intern Ricky Nguyen, Unpaid Consultant Noel Walton
+        © {new Date().getFullYear()} OpenLecture. CEO Meem Morshed, Unpaid
+        Intern Ricky Nguyen, Unpaid Consultant Noel Walton
       </footer>
     </div>
   );
 }
 
-// ✅ Main App
 function App() {
   return (
     <>
@@ -69,7 +79,8 @@ function App() {
         <Route path="/" element={<Navigate to="/landingpage" />} />
         <Route path="/landingpage" element={<LandingPage />} />
         <Route path="/search" element={<SearchPage />} />
-        {/* You can later add <Route path="/login" /> and <Route path="/signup" /> here */}
+        <Route path="/login" element={<LoginPage />} />   
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </>
   );
