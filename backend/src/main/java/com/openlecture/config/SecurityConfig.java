@@ -17,10 +17,9 @@ import com.openlecture.service.CustomUserDetailsService;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final CustomUserDetailsService customUserDetailsService;
 
-    private final CustomUserDetailsService customUserDetailsService; // add this
-
-    // Expose AuthenticationManager so it can be @Autowired in AuthController
+    // Expose AuthenticationManager so it can be used in AuthController
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
@@ -30,13 +29,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            // Register our custom authentication provider
+            .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/courses/**",
                     "/",
                     "/api/public/**",
-                    "/api/auth/**")
-                .permitAll()
+                    "/api/auth/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .httpBasic(httpBasic -> {});
@@ -46,7 +47,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // BCrypt is a secure password hashing algorithm
         return new BCryptPasswordEncoder();
     }
 

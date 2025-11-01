@@ -37,6 +37,7 @@ public class AuthController {
             userService.registerUser(registerRequest);
             return ResponseEntity.ok(Map.of("message", "User registered successfully"));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
@@ -54,10 +55,7 @@ public class AuthController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // Fetch user from DB
             User user = userService.findByEmail(loginRequest.getEmail());
-
-            // Generate JWT using email (String)
             String jwt = tokenProvider.generateToken(user.getEmail());
 
             return ResponseEntity.ok(Map.of(
@@ -67,7 +65,8 @@ public class AuthController {
                     "message", "Login successful"
             ));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid email or password"));
+            e.printStackTrace(); // log exact cause
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid email or password: " + e.getMessage()));
         }
     }
 }
