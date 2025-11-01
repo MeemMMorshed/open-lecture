@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,20 @@ public class CourseService {
         List<Course> allCourses = (building == null || building.isEmpty()) ? courseRepository.findByDay(day)
                 : courseRepository.findByDayAndRoomStartingWith(day, building);
 
-        Set<String> busyRooms = allCourses.stream().filter(course -> {
-            LocalTime courseStart = LocalTime.parse(course.getTime());
-            LocalTime courseEnd = courseStart.plusMinutes(course.getDuration());
-            return courseStart.isBefore(end) && courseEnd.isAfter(start);
-        }).map(Course::getRoom).collect(Collectors.toSet());
+                Set<String> busyRooms = allCourses.stream().filter(course -> {
+                    try {
+                        DateTimeFormatter flexibleTimeFormatter = DateTimeFormatter.ofPattern("[H:mm[:ss]][HH:mm[:ss]]");
+
+                        LocalTime courseStart = LocalTime.parse(course.getTime(), flexibleTimeFormatter);
+                        LocalTime courseEnd = courseStart.plusMinutes(course.getDuration());
+
+                        return courseStart.isBefore(end) && courseEnd.isAfter(start);
+                    } catch (Exception e) {
+                        System.out.println("Skipping invalid time format: " + course.getTime());
+                        return false;
+                    }
+                }).map(Course::getRoom).collect(Collectors.toSet());
+
 
         Set<String> allRooms = allCourses.stream().map(Course::getRoom).collect(Collectors.toSet());
 
