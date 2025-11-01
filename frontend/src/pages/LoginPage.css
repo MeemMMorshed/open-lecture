@@ -71,10 +71,11 @@
     background-color: #1d4ed8;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 30px;
     font-size: 1rem;
     cursor: pointer;
   }
+  
   
   .login-form button:hover {
     background-color: #1d4ed8;
