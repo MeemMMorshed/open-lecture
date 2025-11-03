@@ -4,7 +4,12 @@
 /Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/controller/CourseController.java
 /Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/model/Course.java
 /Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/model/User.java
+/Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/payload/LoginRequest.java
+/Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/payload/RegisterRequest.java
 /Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/repository/CourseRepository.java
 /Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/repository/UserRepository.java
+/Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/security/JwtTokenProvider.java
 /Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/service/AuthService.java
 /Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/service/CourseService.java
+/Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/service/CustomUserDetailsService.java
+/Users/meemmorshed/open-lecture/backend/src/main/java/com/openlecture/service/UserService.java
