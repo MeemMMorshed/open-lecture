@@ -4,6 +4,8 @@ import SearchPage from "./pages/SearchPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import "./App.css";
+import brandIcon from "./assets/brand-icon.png";
+
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -17,7 +19,12 @@ function Navbar() {
   return (
     <header className="topbar">
       <div className="topbar__left">
-        <span className="brand__icon">🎓</span>
+      <img
+        src={brandIcon}
+        alt="OpenLecture logo"
+        className="brand__icon"
+      />
+
         <Link to="/landingpage" className="brand__text">
           OpenLecture
         </Link>
@@ -59,7 +66,7 @@ function LandingPage() {
 
         <div className="uniGrid">
           <Link to="/search" className="uniBtn uniBtn--primary">
-            York University
+            🦁 York University 🦁
           </Link>
 
           <a href="#" onClick={stop} className="uniBtn uniBtn--disabled">

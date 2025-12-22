@@ -122,13 +122,14 @@ export default function SearchPage() {
         </div>
       </div>
 
-      <ul>
+      <ul className="results-list">
         {results.length > 0 ? (
           results.map((room, index) => <li key={index}>{room}</li>)
-        ) : (
-          <p>No available rooms</p>
+         ) : (
+         <p>No available rooms</p>
         )}
       </ul>
+
 
       {/* 🔹 Updated link to go back to /home */}
       <Link to="/landingpage" className="cta-button">
