@@ -132,7 +132,7 @@ export default function SearchPage() {
 
 
       {/* 🔹 Updated link to go back to /home */}
-      <Link to="/landingpage" className="cta-button">
+      <Link to="/home" className="cta-button">
         ⬅ Back to Home
       </Link>
     </div>

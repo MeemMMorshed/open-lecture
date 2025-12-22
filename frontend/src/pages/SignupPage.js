@@ -41,7 +41,7 @@ export default function SignupPage() {
 
         <form className="authCard" onSubmit={handleSubmit}>
           <div className="field">
-            <label>Full Name</label>
+            <label>Name</label>
             <input
               name="fullName"
               placeholder="John Doe"
@@ -52,11 +52,11 @@ export default function SignupPage() {
           </div>
 
           <div className="field">
-            <label>University Email</label>
+            <label>Email</label>
             <input
               name="email"
               type="email"
-              placeholder="you@university.edu"
+              placeholder="john.doe@email.com"
               value={form.email}
               onChange={handleChange}
               required

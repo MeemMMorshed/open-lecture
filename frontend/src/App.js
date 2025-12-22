@@ -25,7 +25,7 @@ function Navbar() {
         className="brand__icon"
       />
 
-        <Link to="/landingpage" className="brand__text">
+        <Link to="/home" className="brand__text">
           OpenLecture
         </Link>
       </div>
@@ -94,8 +94,8 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/landingpage" />} />
-        <Route path="/landingpage" element={<LandingPage />} />
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<LandingPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
