@@ -6,7 +6,7 @@
   
   .login-left {
     flex: 1;
-    background: linear-gradient(135deg, #1d4ed8, #1d4ed8);
+    background: linear-gradient(135deg, #6D5BD0, #6D5BD0);
     color: white;
     padding: 60px;
     display: flex;
@@ -68,7 +68,7 @@
   .login-form button {
     width: 100%;
     padding: 12px;
-    background-color: #1d4ed8;
+    background-color: #6D5BD0;
     color: white;
     border: none;
     border-radius: 30px;
@@ -78,7 +78,7 @@
   
   
   .login-form button:hover {
-    background-color: #1d4ed8;
+    background-color: #6D5BD0;
   }
   
   .forgot-link {
@@ -86,7 +86,7 @@
     margin-top: 15px;
     text-align: right;
     font-size: 0.9rem;
-    color: #1d4ed8;
+    color: #6D5BD0;
     text-decoration: none;
   }
   
@@ -115,7 +115,7 @@ body, html, #root {
   }
   
   .header h1 {
-    color: #1d4ed8;
+    color: #6D5BD0;
     margin: 0;
   }
   
@@ -126,7 +126,7 @@ body, html, #root {
   }
   
   .header nav a:hover {
-    color: #1d4ed8;
+    color: #6D5BD0;
   }
   
   /* Search Page */
@@ -147,7 +147,7 @@ body, html, #root {
     height: 45px;              
     padding: 8px 12px;
     font-size: 16px;
-    border: 2px solid #1d4ed8;     
+    border: 2px solid #6D5BD0;     
     border-radius: 25px;          
     background-color: #f0f4ff;      
     color: #1e3a8a;                 
@@ -165,7 +165,7 @@ body, html, #root {
     height: 27px;              
     padding: 7px 12px;
     font-size: 16px;
-    border: 2px solid #1d4ed8;     
+    border: 2px solid #6D5BD0;     
     border-radius: 25px;          
     background-color: #f0f4ff;      
     color: #1e3a8a;                 
@@ -233,7 +233,7 @@ body, html, #root {
   /* Buttons */
   .cta-button, button.cta-button {
     padding: 15px 40px;
-    background-color: #1d4ed8;
+    background-color: #6D5BD0;
     color: #fff;
     text-decoration: none;
     border-radius: 30px;
@@ -252,7 +252,7 @@ body, html, #root {
   }
   
   .clear-button {
-    background-color: #9ca3af;
+    background-color: #6D5BD0;
     color: white;
     padding: 15px 40px;
     text-decoration: none;
@@ -267,7 +267,7 @@ body, html, #root {
   
   .cta-button, button.cta-button {
     padding: 14px 35px;
-    background-color: #1d4ed8;
+    background-color: #6D5BD0;
     color: #fff;
     text-decoration: none;
     border-radius: 30px;
@@ -276,7 +276,7 @@ body, html, #root {
   
   .cta-button1 {
     padding: 15px 40px;
-    background-color: #1d4ed8;
+    background-color: #6D5BD0;
     color: #fff;
     text-decoration: none;
     border-radius: 30px;
@@ -287,7 +287,7 @@ body, html, #root {
   
   .cta-button2 {
     padding: 15px 40px;
-    background-color: #1d4ed8;
+    background-color: #6D5BD0;
     color: #fff;
     text-decoration: none;
     border-radius: 30px;
@@ -298,7 +298,7 @@ body, html, #root {
   
   .cta-button3 {
     padding: 15px 40px;
-    background-color: #1d4ed8;
+    background-color: #6D5BD0;
     color: #fff;
     text-decoration: none;
     border-radius: 30px;
@@ -308,7 +308,7 @@ body, html, #root {
   }
   
   button.cta-button:hover, .cta-button:hover {
-    background-color: #2563eb;
+    background-color: #6D5BD0;
   }
   
   /* Footer */
