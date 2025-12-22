@@ -1,27 +1,100 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./SignupPage.css";
 
 export default function SignupPage() {
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form)
-    });
-    const data = await res.json();
-    alert(data.message);
+
+    if (form.password !== form.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    // TODO: replace with your real endpoint + payload keys
+    // const res = await fetch("http://localhost:8080/api/auth/signup", { ... })
+
+    // For now:
+    navigate("/login");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="username" onChange={handleChange} placeholder="Username" />
-      <input name="email" onChange={handleChange} placeholder="Email" />
-      <input name="password" type="password" onChange={handleChange} placeholder="Password" />
-      <button type="submit">Sign Up</button>
-    </form>
+    <main className="authPage">
+      
+
+      <section className="authCenter">
+        <h1 className="authTitle">Create your account</h1>
+        <p className="authSubtitle">
+          Join OpenLecture to find study spaces at your university
+        </p>
+
+        <form className="authCard" onSubmit={handleSubmit}>
+          <div className="field">
+            <label>Full Name</label>
+            <input
+              name="fullName"
+              placeholder="John Doe"
+              value={form.fullName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="field">
+            <label>University Email</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="you@university.edu"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="field">
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="Create a strong password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="field">
+            <label>Confirm Password</label>
+            <input
+              name="confirmPassword"
+              type="password"
+              placeholder="Re-enter your password"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button className="primaryBtn" type="submit">
+            Create Account
+          </button>
+
+          
+          
+        </form>
+      </section>
+    </main>
   );
 }
