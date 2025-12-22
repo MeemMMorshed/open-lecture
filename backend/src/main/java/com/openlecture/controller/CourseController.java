@@ -21,13 +21,14 @@ public class CourseController {
     }
 
     @GetMapping("/available")
-    public List<String> getAvailableROoms(
-            @RequestParam String day,
-            @RequestParam String startTime,
-            @RequestParam String endTime,
-            @RequestParam(required = false) String building) {
-        return courseService.getAvailableRooms(day, startTime, endTime, building);
-    }
+    public List<String> getAvailableRooms(  
+        @RequestParam("day") String day,
+        @RequestParam("startTime") String startTime,
+        @RequestParam("endTime") String endTime,
+        @RequestParam(value = "building", required = false) String building) {
+    return courseService.getAvailableRooms(day, startTime, endTime, building);
+}
+
 
 
 
