@@ -1,73 +1,84 @@
 import React from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
-import LoginPage from "./pages/LoginPage";  
-import SignupPage from "./pages/SignupPage"; 
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 import "./App.css";
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    window.location.href = "/login"; // redirect after logout
+    navigate("/login");
   };
 
   return (
-    <nav className="navbar" style={{ padding: "1rem", background: "#f8f8f8" }}>
-      <h2 style={{ display: "inline-block", marginRight: "1rem" }}>
-        <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+    <header className="topbar">
+      <div className="topbar__left">
+        <span className="brand__icon">🎓</span>
+        <Link to="/landingpage" className="brand__text">
           OpenLecture
         </Link>
-      </h2>
+      </div>
 
-      <div style={{ float: "right" }}>
+      <div className="topbar__right">
         {user ? (
           <>
-            <span style={{ marginRight: "10px" }}>
-              Welcome, {user.username}
-            </span>
-            <button onClick={handleLogout}>Logout</button>
+            <span className="topbar__welcome">Welcome, {user.username}</span>
+            <button className="btn btn--ghost" onClick={handleLogout}>
+              Logout
+            </button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link> | <Link to="/signup">Sign Up</Link>
+            <Link className="topbar__link" to="/login">
+              Login
+            </Link>
+            <Link className="btn btn--dark" to="/signup">
+              Sign Up
+            </Link>
           </>
         )}
       </div>
-    </nav>
+    </header>
   );
 }
 
 function LandingPage() {
+  const stop = (e) => e.preventDefault();
+
   return (
-    <div className="app">
-      <header className="header">
-        <h1>OpenLecture</h1>
-      </header>
+    <main className="landing">
+      <section className="heroCard">
+        <h1 className="heroTitle">Find Empty Lecture Halls at Your University</h1>
+        <p className="heroSubtitle">
+          Discover quiet study spaces across campus in real-time
+        </p>
 
-      <main className="hero">
-        <h2>Find Empty Lecture Halls at Your University</h2>
-        <p>More Universities Coming Soon...</p>
-        <Link to="/search" className="cta-button">
-          York University
-        </Link>
-        <Link to="" className="cta-button1">
-          Coming Soon...
-        </Link>
-        <Link to="" className="cta-button2">
-          Coming Soon...
-        </Link>
-        <Link to="" className="cta-button3">
-          Coming Soon...
-        </Link>
-      </main>
+        <div className="uniGrid">
+          <Link to="/search" className="uniBtn uniBtn--primary">
+            York University
+          </Link>
 
-      <footer className="footer">
-        © {new Date().getFullYear()} OpenLecture. CEO Meem Morshed, Unpaid
-        Intern Ricky Nguyen, Unpaid Consultant Noel Walton
-      </footer>
-    </div>
+          <a href="#" onClick={stop} className="uniBtn uniBtn--disabled">
+            Coming Soon...
+          </a>
+
+          <a href="#" onClick={stop} className="uniBtn uniBtn--disabled">
+            Coming Soon...
+          </a>
+
+          <a href="#" onClick={stop} className="uniBtn uniBtn--disabled">
+            Coming Soon...
+          </a>
+        </div>
+
+        <p className="heroNote">More Universities Coming Soon...</p>
+      </section>
+      
+    </main>
   );
 }
 
@@ -79,7 +90,7 @@ function App() {
         <Route path="/" element={<Navigate to="/landingpage" />} />
         <Route path="/landingpage" element={<LandingPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/login" element={<LoginPage />} />   
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </>
