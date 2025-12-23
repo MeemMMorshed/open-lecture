@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+📚 OpenLecture
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+OpenLecture is a web application that helps university students find empty lecture halls and quiet study spaces in real time.
+Starting with York University, OpenLecture aims to expand to multiple campuses.
 
-## Available Scripts
+🚀 Features
 
-In the project directory, you can run:
+🎓 University-specific access (York University supported)
 
-### `npm start`
+🔍 Search for empty lecture halls by time and building
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+🧭 Clean, modern landing page UI
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🔐 Authentication system
 
-### `npm test`
+Login
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Sign up
 
-### `npm run build`
+🎨 Consistent purple-themed design system
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+📱 Responsive layout (desktop & mobile friendly)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🛠 Tech Stack
+Frontend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+React
 
-### `npm run eject`
+React Router
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+CSS (custom design system)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Modern UI patterns (cards, pills, grid layout)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Backend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Spring Boot
 
-## Learn More
+REST API for authentication & room availability
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+PostgreSQL (planned / in progress)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+📂 Project Structure
+src/
+├── assets/
+│   └── brand-icon.png
+├── pages/
+│   ├── LandingPage.jsx
+│   ├── SearchPage.jsx
+│   ├── LoginPage.jsx
+│   └── SignupPage.jsx
+├── App.js
+├── App.css
+└── index.js
 
-### Code Splitting
+🔐 Authentication Flow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Users can sign up using their university email
 
-### Analyzing the Bundle Size
+Users can log in
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Auth state is stored in localStorage
 
-### Making a Progressive Web App
+Navbar updates dynamically based on login state
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+🎨 Design System
 
-### Advanced Configuration
+Primary Color: Purple #6D5BD0
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Neutral background: Light gray
 
-### Deployment
+Rounded pill buttons
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Card-based layouts
 
-### `npm run build` fails to minify
+Minimalist, university-friendly UI
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+🧪 Running the Project Locally
+1️⃣ Clone the repository
+git clone https://github.com/your-username/openlecture.git
+cd openlecture
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Start the frontend
+npm start
+
+
+Frontend runs at:
+
+http://localhost:3000
+
+🌱 Roadmap
+
+ Expand to more universities
+
+ Real-time occupancy updates
+
+ Building & room filters
+
+ Admin dashboard
+
+ OAuth login (Google / GitHub)
+
+ Mobile optimization
+
+ Dark mode
+
+👨‍💻 Contributors
+
+Meem Morshed — Founder & Developer
+
+Open to contributors 🚀
+
+📄 License
+
+© 2025 OpenLecture. All rights reserved.
+
+If you want, I can:
+
+tailor this README for GitHub stars
+
+add screenshots / GIFs
+
+write a pitch-style README for recruiters
+
+add API documentation
+
+Just tell me 👍
