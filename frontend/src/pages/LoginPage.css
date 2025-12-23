@@ -350,6 +350,116 @@ body, html, #root {
     margin-right: 0;
     display: block;
   }
+
+  .login-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* LEFT PANEL */
+  .login-left {
+    flex: 1;
+    background: #6366f1;
+    color: white;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .login-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  
+  .login-brand img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .login-copy h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  
+  .login-copy p {
+    font-size: 18px;
+    color: #e0e7ff;
+  }
+  
+  /* Illustration */
+  .login-illustration {
+    margin-top: 32px;
+  }
+  
+  .login-illustration img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 14px;
+    opacity: 0.95;
+  }
+  
+  /* RIGHT PANEL */
+  .login-right {
+    flex: 1;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .login-form h2 {
+    font-size: 28px;
+    font-weight: 800;
+  }
+  
+  .login-form p {
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+  
+  
+  
+  .login-form button {
+    width: 100%;
+    height: 48px;
+    border-radius: 14px;
+    background: #6366f1;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .login-form button:hover {
+    background: #5558e3;
+  }
+  
+ 
+  
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .login-left {
+      display: none;
+    }
+  }
+  
   
   
   
