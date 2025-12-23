@@ -12,7 +12,13 @@ function Navbar() {
             </>
           ) : (
             <>
-              <a href="/login">Login</a> | <a href="/signup">Sign Up</a>
+              <Link className="btn btn--outline-dark" to="/login">
+                Login
+              </Link>
+
+              <Link className="btn btn--dark" to="/signup">
+                Sign Up
+              </Link>
             </>
           )}
         </div>
