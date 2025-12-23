@@ -40,9 +40,10 @@ function Navbar() {
           </>
         ) : (
           <>
-            <Link className="topbar__link" to="/login">
+            <Link className="btn btn--dark" to="/login">
               Login
             </Link>
+
             <Link className="btn btn--dark" to="/signup">
               Sign Up
             </Link>
