@@ -370,7 +370,7 @@ body, html, #root {
   .login-brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 3px;
     font-size: 22px;
     font-weight: 700;
   }
@@ -399,7 +399,7 @@ body, html, #root {
   
   .login-illustration img {
     width: 100%;
-    height: 260px;
+    height: 320px;
     object-fit: cover;
     border-radius: 14px;
     opacity: 0.95;
