@@ -69,32 +69,71 @@ function LandingPage() {
   return (
     <main className="landing">
       <section className="heroCard">
-        <h1 className="heroTitle">Find Empty Lecture Halls at Your University</h1>
+        <p className="heroEyebrow">Campus study made simple</p>
+        <h1 className="heroTitle">Find empty lecture halls and calm study spaces in seconds</h1>
         <p className="heroSubtitle">
-          Discover quiet study spaces across campus in real-time
+          Search by day, time, and building to discover the perfect spot for focus, revision, and collaboration.
         </p>
+
+        <div className="heroActions">
+          <Link to="/search" className="btn btn--dark">
+            Start searching
+          </Link>
+          <Link to="/login" className="btn btn--ghost">
+            Sign in
+          </Link>
+        </div>
+
+        <div className="heroStats">
+          <div className="heroStat">
+            <strong>30+</strong>
+            <span>Campus buildings</span>
+          </div>
+          <div className="heroStat">
+            <strong>Real-time</strong>
+            <span>availability checks</span>
+          </div>
+          <div className="heroStat">
+            <strong>Any time</strong>
+            <span>study-friendly spaces</span>
+          </div>
+        </div>
 
         <div className="uniGrid">
           <Link to="/search" className="uniBtn uniBtn--primary">
-            🦁 York University 🦁
+            York University
           </Link>
 
-          <a href="#" onClick={stop} className="uniBtn uniBtn--disabled">
-            Coming Soon...
-          </a>
+          <button type="button" onClick={stop} className="uniBtn uniBtn--disabled">
+            Coming Soon
+          </button>
 
-          <a href="#" onClick={stop} className="uniBtn uniBtn--disabled">
-            Coming Soon...
-          </a>
+          <button type="button" onClick={stop} className="uniBtn uniBtn--disabled">
+            Coming Soon
+          </button>
 
-          <a href="#" onClick={stop} className="uniBtn uniBtn--disabled">
-            Coming Soon...
-          </a>
+          <button type="button" onClick={stop} className="uniBtn uniBtn--disabled">
+            Coming Soon
+          </button>
         </div>
 
-        <p className="heroNote">More Universities Coming Soon...</p>
+        <div className="featureGrid">
+          <article className="featureCard">
+            <h3>Fast filters</h3>
+            <p>Choose a day, time window, and building quickly.</p>
+          </article>
+          <article className="featureCard">
+            <h3>Study-friendly</h3>
+            <p>Discover quieter spaces for revision, coding, and group work.</p>
+          </article>
+          <article className="featureCard">
+            <h3>Campus-ready</h3>
+            <p>Built to make finding an open room feel effortless.</p>
+          </article>
+        </div>
+
+        <p className="heroNote">More universities will be added soon.</p>
       </section>
-      
     </main>
   );
 }
