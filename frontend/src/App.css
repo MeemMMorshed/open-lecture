@@ -390,6 +390,13 @@ select {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+
+.button-group .btn {
+  min-width: 110px;
+  margin-top: 6px;
 }
 
 .results-header {
