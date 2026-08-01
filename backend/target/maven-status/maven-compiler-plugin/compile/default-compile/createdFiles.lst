@@ -2,11 +2,16 @@ com/openlecture/service/AuthService.class
 com/openlecture/repository/UserRepository.class
 com/openlecture/BackendApplication.class
 com/openlecture/service/CourseService.class
+com/openlecture/payload/LoginRequest.class
+com/openlecture/payload/RegisterRequest.class
 com/openlecture/model/User$UserBuilder.class
+com/openlecture/security/JwtTokenProvider.class
 com/openlecture/model/Course$CourseBuilder.class
+com/openlecture/service/CustomUserDetailsService.class
 com/openlecture/repository/CourseRepository.class
 com/openlecture/controller/CourseController.class
 com/openlecture/controller/AuthController.class
+com/openlecture/service/UserService.class
 com/openlecture/model/User.class
 com/openlecture/config/SecurityConfig.class
 com/openlecture/model/Course.class

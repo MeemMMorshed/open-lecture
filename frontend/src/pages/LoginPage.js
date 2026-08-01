@@ -1,28 +1,38 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import illustration from "../assets/students-in-class.png";
 import brandIcon from "../assets/brand-icon.png";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
 
-    if (data.user) {
-      localStorage.setItem("user", JSON.stringify(data.user));
-      window.location.href = "/";
-    } else {
-      alert(data.message || "Login failed");
+      if (!res.ok || !data.token) {
+        throw new Error(data.error || "Invalid email or password.");
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ username: data.username, email: data.email })
+      );
+      navigate("/home");
+    } catch (error) {
+      alert(error.message || "Login failed");
     }
   };
 

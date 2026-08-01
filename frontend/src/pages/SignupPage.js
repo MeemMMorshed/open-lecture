@@ -23,12 +23,26 @@ export default function SignupPage() {
       return;
     }
 
-    // TODO: replace endpoint + payload to match your backend
-    // Example:
-    // const res = await fetch("http://localhost:8080/api/auth/signup", { ... });
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: form.fullName,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+      const data = await res.json();
 
-    // For now just navigate:
-    navigate("/login");
+      if (!res.ok) {
+        throw new Error(data.error || "Unable to create your account.");
+      }
+
+      navigate("/login");
+    } catch (error) {
+      alert(error.message || "Unable to create your account.");
+    }
   };
 
   return (

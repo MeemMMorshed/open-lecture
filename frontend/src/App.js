@@ -1,11 +1,20 @@
-import React from "react";
-import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
+import React, { useLayoutEffect } from "react";
+import { Routes, Route, Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import "./App.css";
 import brandIcon from "./assets/brand-icon.png";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -93,6 +102,7 @@ function LandingPage() {
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
