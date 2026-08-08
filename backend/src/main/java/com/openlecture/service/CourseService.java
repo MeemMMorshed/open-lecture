@@ -9,24 +9,28 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 
 import com.openlecture.model.Course;
+import com.openlecture.model.Room;
 import com.openlecture.repository.CourseRepository;
+import com.openlecture.repository.RoomRepository;
 
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
+    private final RoomRepository roomRepository;
 
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, RoomRepository roomRepository) {
         this.courseRepository = courseRepository;
+        this.roomRepository = roomRepository;
     }
 
     public List<String> getAvailableRooms(String day, String startTime, String endTime, String building) {
         LocalTime start = LocalTime.parse(startTime);
         LocalTime end = LocalTime.parse(endTime);
 
-        List<Course> allCourses = (building == null || building.isEmpty()) ? courseRepository.findByDay(day)
+        List<Course> scheduledCourses = (building == null || building.isEmpty()) ? courseRepository.findByDay(day)
                 : courseRepository.findByDayAndRoomStartingWith(day, building);
 
-                Set<String> busyRooms = allCourses.stream().filter(course -> {
+        Set<String> busyRooms = scheduledCourses.stream().filter(course -> {
                     try {
                         DateTimeFormatter flexibleTimeFormatter = DateTimeFormatter.ofPattern("[H:mm[:ss]][HH:mm[:ss]]");
 
@@ -41,7 +45,12 @@ public class CourseService {
                 }).map(Course::getRoom).collect(Collectors.toSet());
 
 
-        Set<String> allRooms = allCourses.stream().map(Course::getRoom).collect(Collectors.toSet());
+        Set<String> allRooms = (building == null || building.isEmpty()
+                ? roomRepository.findAll()
+                : roomRepository.findByBuilding(building))
+                .stream()
+                .map(Room::getName)
+                .collect(Collectors.toSet());
 
         return allRooms.stream().filter(room -> !busyRooms.contains(room)).sorted().collect(Collectors.toList());
     }

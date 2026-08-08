@@ -7,9 +7,9 @@ frontend/node_modules/
 .pnp
 .pnp.js
 
-# Ignore backend configuration files
-backend/src/main/resources/application.properties
+# Ignore private backend configuration files (the local H2 defaults are committed)
 backend/src/main/resources/application.yml
+backend/data/
 
 # Build and cache outputs
 
@@ -52,4 +52,3 @@ yarn-error.log*
 .vscode/
 .idea/
 Thumbs.db
-
