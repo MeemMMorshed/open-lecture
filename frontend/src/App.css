@@ -33,6 +33,12 @@ select {
   font: inherit;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* ===== Top Bar ===== */
 .topbar {
   position: sticky;
@@ -633,6 +639,46 @@ select {
 }
 
 @media (max-width: 540px) {
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  .topbar__welcome {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .landing {
+    padding: 16px 10px 24px;
+  }
+
+  .heroCard {
+    padding: 26px 14px;
+    border-radius: 22px;
+  }
+
+  .heroTitle {
+    font-size: clamp(2rem, 10vw, 2.5rem);
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .heroStats {
+    margin-top: 22px;
+  }
+
+  .uniGrid {
+    width: 100%;
+    margin-top: 26px;
+  }
+
+  .featureGrid {
+    margin-top: 24px;
+  }
+
   .search-page {
     padding: 18px 10px 28px;
   }

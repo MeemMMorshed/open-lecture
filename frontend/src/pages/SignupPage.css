@@ -25,6 +25,19 @@
 
 }
 
+.signupLeftContent {
+  width: min(560px, 100%);
+}
+
+.signupHeading {
+  margin: 0;
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  color: #0b1220;
+}
+
 .signupLeftInner {
   width: min(560px, 92%);
 }
@@ -229,5 +242,56 @@
 
   .signupRight {
     padding-top: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .signupPage {
+    min-height: auto;
+  }
+
+  .signupLeft,
+  .signupRight {
+    padding: 28px 16px;
+  }
+
+  .signupLeft {
+    padding-bottom: 8px;
+  }
+
+  .signupRight {
+    padding-top: 8px;
+  }
+
+  .signupHeading {
+    font-size: clamp(2rem, 10vw, 2.75rem);
+  }
+
+  .signupDesc {
+    font-size: 1rem;
+  }
+
+  .signupFeatures {
+    margin-top: 28px;
+    gap: 16px;
+  }
+
+  .signupCard {
+    width: 100%;
+    padding: 26px 18px 22px;
+    border-radius: 16px;
+  }
+
+  .signupTitle {
+    font-size: 1.7rem;
+  }
+
+  .dividerRow {
+    gap: 8px;
+  }
+
+  .dividerText {
+    font-size: 10px;
+    letter-spacing: 0.03em;
   }
 }
