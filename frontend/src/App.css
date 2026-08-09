@@ -49,8 +49,7 @@ select {
   align-items: center;
   justify-content: space-between;
   padding: 0 56px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(14px);
+  background: #ffffff;
   border-bottom: 1px solid rgba(109, 91, 208, 0.12);
   box-shadow: 0 6px 18px rgba(17, 24, 39, 0.03);
 }
@@ -138,7 +137,7 @@ select {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(6px);
+  opacity: 0.7;
 }
 
 .landing::before {
@@ -354,7 +353,7 @@ select {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(8px);
+  opacity: 0.7;
 }
 
 .search-page::before {
@@ -431,7 +430,7 @@ select {
   background: linear-gradient(135deg, rgba(255,255,255,0.97), rgba(248,247,255,0.95));
   border: 1px solid rgba(109, 91, 208, 0.12);
   border-radius: 24px;
-  box-shadow: 0 24px 48px rgba(17, 24, 39, 0.08);
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.06);
   padding: 24px;
   overflow: hidden;
 }
@@ -526,13 +525,11 @@ select {
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(109, 91, 208, 0.12);
   color: var(--text);
-  box-shadow: 0 8px 16px rgba(17, 24, 39, 0.03);
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  box-shadow: none;
 }
 
 .result-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.05);
+  background: #fff;
 }
 
 /* Avoid painting every result while a long room list is off screen. */
@@ -653,14 +650,8 @@ select {
     gap: 8px;
   }
 
-  /* These compositing effects are costly while scrolling on mobile GPUs. */
-  .topbar {
-    backdrop-filter: none;
-  }
-
   .search-page::before,
   .search-page::after {
-    filter: none;
     opacity: 0.55;
   }
 }
