@@ -12,8 +12,12 @@ import com.openlecture.service.CourseService;
 
 @RestController
 @RequestMapping("/api/courses")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "https://open-lecture-frontend.onrender.com"
+})
 public class CourseController {
+
     private final CourseService courseService;
 
     public CourseController(CourseService courseService) {
@@ -21,16 +25,17 @@ public class CourseController {
     }
 
     @GetMapping("/available")
-    public List<String> getAvailableRooms(  
-        @RequestParam("day") String day,
-        @RequestParam("startTime") String startTime,
-        @RequestParam("endTime") String endTime,
-        @RequestParam(value = "building", required = false) String building) {
-    return courseService.getAvailableRooms(day, startTime, endTime, building);
-}
+    public List<String> getAvailableRooms(
+            @RequestParam("day") String day,
+            @RequestParam("startTime") String startTime,
+            @RequestParam("endTime") String endTime,
+            @RequestParam(value = "building", required = false) String building) {
 
-
-
-
-
+        return courseService.getAvailableRooms(
+            day,
+            startTime,
+            endTime,
+            building
+        );
+    }
 }
