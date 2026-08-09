@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 import "./SignupPage.css";
 
 export default function SignupPage() {
@@ -12,8 +13,12 @@ export default function SignupPage() {
     confirmPassword: "",
   });
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,15 +29,18 @@ export default function SignupPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/register", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           username: form.fullName,
           email: form.email,
           password: form.password,
         }),
       });
+
       const data = await res.json();
 
       if (!res.ok) {
@@ -41,6 +49,7 @@ export default function SignupPage() {
 
       navigate("/login");
     } catch (error) {
+      console.error("Signup error:", error);
       alert(error.message || "Unable to create your account.");
     }
   };
@@ -49,22 +58,24 @@ export default function SignupPage() {
     <div className="signupPage">
       {/* LEFT */}
       <section className="signupLeft">
-        <div className="signupLeftInner">
-          <h1 className="signupHeadline">
-            Find your perfect <br /> study space
+        <div className="signupLeftContent">
+          <h1 className="signupHeading">
+            Find your perfect study space
           </h1>
 
           <p className="signupDesc">
-          OpenLecture helps you find empty lecture halls across campus that are perfect for studying, 
-          group work, or hanging out with friends in a quiet, private space.
-
+            OpenLecture helps you find empty lecture halls across campus that
+            are perfect for studying, group work, or hanging out with friends
+            in a quiet, private space.
           </p>
 
           <ul className="signupFeatures">
             <li className="featureItem">
               <span className="featureDot" />
+
               <div>
                 <div className="featureTitle">Real-time availability</div>
+
                 <div className="featureText">
                   See which study spaces are open right now
                 </div>
@@ -73,8 +84,10 @@ export default function SignupPage() {
 
             <li className="featureItem">
               <span className="featureDot" />
+
               <div>
                 <div className="featureTitle">Campus-wide coverage</div>
+
                 <div className="featureText">
                   Access info for all study spaces across your university
                 </div>
@@ -83,14 +96,16 @@ export default function SignupPage() {
 
             <li className="featureItem">
               <span className="featureDot" />
+
               <div>
                 <div className="featureTitle">Private, quiet spaces</div>
+
                 <div className="featureText">
-                 Find empty lecture halls when you need a distraction-free place on campus.
+                  Find empty lecture halls when you need a distraction-free
+                  place on campus.
                 </div>
               </div>
             </li>
-
           </ul>
         </div>
       </section>
@@ -99,11 +114,18 @@ export default function SignupPage() {
       <section className="signupRight">
         <div className="signupCard">
           <h2 className="signupTitle">Create your account</h2>
-          <p className="signupSubtitle">Start finding study spaces in minutes</p>
+
+          <p className="signupSubtitle">
+            Start finding study spaces in minutes
+          </p>
 
           <form className="signupForm" onSubmit={handleSubmit}>
-            <label className="fieldLabel">Full Name</label>
+            <label className="fieldLabel" htmlFor="fullName">
+              Full Name
+            </label>
+
             <input
+              id="fullName"
               className="fieldInput"
               name="fullName"
               placeholder="John Doe"
@@ -112,8 +134,12 @@ export default function SignupPage() {
               required
             />
 
-            <label className="fieldLabel">Email</label>
+            <label className="fieldLabel" htmlFor="email">
+              Email
+            </label>
+
             <input
+              id="email"
               className="fieldInput"
               type="email"
               name="email"
@@ -123,8 +149,12 @@ export default function SignupPage() {
               required
             />
 
-            <label className="fieldLabel">Password</label>
+            <label className="fieldLabel" htmlFor="password">
+              Password
+            </label>
+
             <input
+              id="password"
               className="fieldInput"
               type="password"
               name="password"
@@ -134,8 +164,12 @@ export default function SignupPage() {
               required
             />
 
-            <label className="fieldLabel">Confirm Password</label>
+            <label className="fieldLabel" htmlFor="confirmPassword">
+              Confirm Password
+            </label>
+
             <input
+              id="confirmPassword"
               className="fieldInput"
               type="password"
               name="confirmPassword"
@@ -158,8 +192,6 @@ export default function SignupPage() {
             <Link className="secondaryBtn" to="/login">
               Sign in instead
             </Link>
-
-            
           </form>
         </div>
       </section>

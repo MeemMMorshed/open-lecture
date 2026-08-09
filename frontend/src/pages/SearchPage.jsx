@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 import "../App.css";
 
 export default function SearchPage() {
@@ -18,12 +19,22 @@ export default function SearchPage() {
     }
 
     try {
+      const params = new URLSearchParams({
+        day,
+        startTime,
+        endTime,
+      });
+
+      if (building) {
+        params.append("building", building);
+      }
+
       const response = await fetch(
-        `http://localhost:8080/api/courses/available?day=${day}&startTime=${startTime}&endTime=${endTime}&building=${building}`
+        `${API_BASE_URL}/api/courses/available?${params.toString()}`
       );
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error(`Request failed with status ${response.status}`);
       }
 
       const data = await response.json();
@@ -36,7 +47,9 @@ export default function SearchPage() {
       }
     } catch (error) {
       console.error("Error fetching available rooms:", error);
-      setNotification("❌ Error fetching available rooms. Please try again later.");
+      setNotification(
+        "❌ Error fetching available rooms. Please try again later."
+      );
     }
 
     setTimeout(() => setNotification(""), 3000);
@@ -46,18 +59,24 @@ export default function SearchPage() {
     setDay("");
     setStartTime("");
     setEndTime("");
+    setBuilding("");
     setResults([]);
+    setNotification("");
   };
 
   return (
     <div className="search-page">
-      <div className="search-shell">
-        <div className="page-heading">
+      <div className="search-page__content">
+        <div className="search-heading">
           <div>
-            <h2>Find a room that fits your study plan</h2>
-            <p>Pick a building, day, and time window to view available lecture halls.</p>
+            <h1>Find a room that fits your study plan</h1>
+            <p>
+              Pick a building, day, and time window to view available lecture
+              halls.
+            </p>
           </div>
-          <Link to="/home" className="btn btn--ghost">
+
+          <Link to="/" className="back-link">
             ← Back home
           </Link>
         </div>
@@ -70,7 +89,10 @@ export default function SearchPage() {
           <div className="search-form">
             <label className="field-card">
               <span className="field-label">Building</span>
-              <select value={building} onChange={(e) => setBuilding(e.target.value)}>
+              <select
+                value={building}
+                onChange={(e) => setBuilding(e.target.value)}
+              >
                 <option value="">All Buildings</option>
                 <option value="ACW">Accolade West</option>
                 <option value="ACE">Accolade East</option>
@@ -78,22 +100,30 @@ export default function SearchPage() {
                 <option value="BRG">Bergeron Centre</option>
                 <option value="CB">Chemistry Building</option>
                 <option value="CC">Calumet College</option>
-                <option value="CFA">The Joan & Martin Goldfarb Centre</option>
+                <option value="CFA">
+                  The Joan &amp; Martin Goldfarb Centre
+                </option>
                 <option value="CFT">Centre for Film and Theatre</option>
                 <option value="CLH">Curtis Lecture Hall</option>
                 <option value="CSQ">Central Square</option>
                 <option value="DB">Dahdaleh Building</option>
                 <option value="FC">Founders College</option>
                 <option value="FRQ">Farquharson Life Sciences</option>
-                <option value="HNE">Health, Nursing and Environmental Studies Building</option>
+                <option value="HNE">
+                  Health, Nursing and Environmental Studies Building
+                </option>
                 <option value="LAS">Lassonde Building</option>
                 <option value="LSB">Life Science Building</option>
                 <option value="LUM">Lumbers Building</option>
                 <option value="MB">McLaughlin College</option>
-                <option value="PSE">Petrie Science and Engineering Building</option>
+                <option value="PSE">
+                  Petrie Science and Engineering Building
+                </option>
                 <option value="R">Ross Building</option>
                 <option value="SC">Stong College</option>
-                <option value="SHR">Sherman Health Science Research Centre</option>
+                <option value="SHR">
+                  Sherman Health Science Research Centre
+                </option>
                 <option value="SLH">Stedman Lecture Halls</option>
                 <option value="TFC">Track and Field Centre</option>
                 <option value="TM">Tait Mckenzie Centre</option>
@@ -118,19 +148,37 @@ export default function SearchPage() {
             <div className="time-range">
               <label className="field-card">
                 <span className="field-label">Start</span>
-                <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                <input
+                  type="time"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                />
               </label>
+
               <label className="field-card">
                 <span className="field-label">End</span>
-                <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+                <input
+                  type="time"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                />
               </label>
             </div>
 
             <div className="button-group">
-              <button className="btn btn--dark" onClick={handleSearch}>
+              <button
+                type="button"
+                className="btn btn--dark"
+                onClick={handleSearch}
+              >
                 Search
               </button>
-              <button className="btn btn--ghost" onClick={handleClear}>
+
+              <button
+                type="button"
+                className="btn btn--ghost"
+                onClick={handleClear}
+              >
                 Clear
               </button>
             </div>
@@ -145,9 +193,16 @@ export default function SearchPage() {
 
           <ul className="results-list">
             {results.length > 0 ? (
-              results.map((room, index) => <li key={index} className="result-item">{room}</li>)
+              results.map((room, index) => (
+                <li key={`${room}-${index}`} className="result-item">
+                  {room}
+                </li>
+              ))
             ) : (
-              <li className="empty-state">No rooms match that search yet. Try a different time or building.</li>
+              <li className="empty-state">
+                No rooms match that search yet. Try a different time or
+                building.
+              </li>
             )}
           </ul>
         </div>
