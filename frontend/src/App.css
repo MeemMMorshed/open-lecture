@@ -447,7 +447,9 @@ select {
 
 .search-form {
   display: grid;
+  grid-template-columns: minmax(190px, 1.4fr) minmax(145px, 0.8fr) minmax(240px, 1.4fr) auto;
   gap: 16px;
+  align-items: end;
 }
 
 .field-card {
@@ -482,9 +484,9 @@ select {
 .button-group {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: flex-end;
-  margin-top: 12px;
+  margin: 0;
 }
 
 .button-group .btn {
@@ -568,6 +570,14 @@ select {
 
   .search-heading .btn {
     width: 100%;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .button-group {
+    margin-top: 12px;
   }
 }
 
