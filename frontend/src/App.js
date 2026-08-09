@@ -65,15 +65,6 @@ function LandingPage() {
           Search by day, time, and building to discover the perfect spot for focus, revision, and collaboration.
         </p>
 
-        <div className="heroActions">
-          <Link to="/search" className="btn btn--dark">
-            Start searching
-          </Link>
-          <Link to="/login" className="btn btn--ghost">
-            Sign in
-          </Link>
-        </div>
-
         <div className="heroStats">
           <div className="heroStat">
             <strong>30+</strong>
