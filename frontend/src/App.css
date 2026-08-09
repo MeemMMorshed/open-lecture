@@ -533,6 +533,12 @@ select {
   box-shadow: 0 10px 20px rgba(17, 24, 39, 0.05);
 }
 
+/* Avoid painting every result while a long room list is off screen. */
+.result-item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 52px;
+}
+
 .empty-state {
   color: var(--muted);
 }
@@ -636,6 +642,17 @@ select {
     flex-direction: column;
     gap: 8px;
   }
+
+  /* These compositing effects are costly while scrolling on mobile GPUs. */
+  .topbar {
+    backdrop-filter: none;
+  }
+
+  .search-page::before,
+  .search-page::after {
+    filter: none;
+    opacity: 0.55;
+  }
 }
 
 @media (max-width: 540px) {
@@ -711,6 +728,11 @@ select {
     background-image: none;
   }
 
+  .search-page::before,
+  .search-page::after {
+    display: none;
+  }
+
   .search-form {
     gap: 14px;
   }
@@ -732,5 +754,9 @@ select {
   .result-item,
   .empty-state {
     padding: 12px 13px;
+  }
+
+  .result-item {
+    box-shadow: none;
   }
 }
