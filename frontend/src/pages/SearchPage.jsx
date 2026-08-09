@@ -76,7 +76,7 @@ export default function SearchPage() {
             </p>
           </div>
 
-          <Link to="/" className="back-link">
+          <Link to="/home" className="btn btn--ghost back-home-button">
             ← Back home
           </Link>
         </div>

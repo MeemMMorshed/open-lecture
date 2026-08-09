@@ -367,7 +367,8 @@ select {
   background: radial-gradient(circle, rgba(67, 53, 126, 0.14) 0%, rgba(67, 53, 126, 0.05) 60%, transparent 100%);
 }
 
-.search-shell {
+.search-shell,
+.search-page__content {
   position: relative;
   width: min(1100px, 100%);
   margin: 0 auto;
@@ -375,7 +376,8 @@ select {
   gap: 20px;
 }
 
-.page-heading {
+.page-heading,
+.search-heading {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -384,15 +386,27 @@ select {
   padding: 6px 2px;
 }
 
-.page-heading h2 {
+.page-heading h2,
+.search-heading h1 {
   margin: 0 0 6px;
   font-size: clamp(24px, 2.2vw, 32px);
   text-shadow: 0 1px 0 rgba(255,255,255,0.7);
 }
 
-.page-heading p {
+.page-heading p,
+.search-heading p {
   margin: 0;
   color: var(--muted);
+}
+
+.back-home-button {
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+.back-home-button:focus-visible {
+  outline: 3px solid rgba(109, 91, 208, 0.35);
+  outline-offset: 3px;
 }
 
 .notification-banner {
@@ -542,4 +556,3 @@ select {
     padding: 32px 18px;
   }
 }
-
