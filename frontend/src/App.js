@@ -47,17 +47,7 @@ function Navbar() {
               Logout
             </button>
           </>
-        ) : (
-          <>
-            <Link className="btn btn--dark" to="/login">
-              Login
-            </Link>
-
-            <Link className="btn btn--dark" to="/signup">
-              Sign Up
-            </Link>
-          </>
-        )}
+        ) : null}
       </div>
     </header>
   );
