@@ -14,7 +14,7 @@ import com.openlecture.service.CourseService;
 @RequestMapping("/api/courses")
 @CrossOrigin(origins = {
     "http://localhost:3000",
-    "https://open-lecture-frontend.onrender.com"
+    "https://openlecture.onrender.com"
 })
 public class CourseController {
 
