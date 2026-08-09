@@ -9,7 +9,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "courses")
+@Table(name = "courses", indexes = {
+    @Index(name = "idx_courses_day", columnList = "course_day"),
+    @Index(name = "idx_courses_day_room", columnList = "course_day, room")
+})
 public class Course {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
