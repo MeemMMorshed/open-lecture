@@ -8,8 +8,14 @@
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/model/User.java
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/payload/LoginRequest.java
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/payload/RegisterRequest.java
+/Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/ratelimit/KafkaRateLimitEventPublisher.java
+/Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/ratelimit/RateLimitEventPublisher.java
+/Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/ratelimit/RateLimitFilter.java
+/Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/ratelimit/RateLimitKafkaProperties.java
+/Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/ratelimit/RateLimitProperties.java
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/repository/CourseRepository.java
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/repository/RoomRepository.java
+/Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/repository/ScheduledCourse.java
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/repository/UserRepository.java
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/security/JwtTokenProvider.java
 /Users/meemmorshed/open-lecture-1/backend/src/main/java/com/openlecture/service/AuthService.java
