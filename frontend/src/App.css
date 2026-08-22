@@ -424,6 +424,23 @@ select {
   box-shadow: 0 8px 18px rgba(109, 91, 208, 0.08);
 }
 
+/* Notification fade transitions */
+.notification-banner {
+  transition: opacity 300ms ease, transform 300ms ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-hide {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.notification-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .search-card,
 .results-card {
   position: relative;

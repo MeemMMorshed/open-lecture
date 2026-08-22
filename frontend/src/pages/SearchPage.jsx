@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import "../App.css";
@@ -10,11 +10,42 @@ export default function SearchPage() {
   const [building, setBuilding] = useState("");
   const [notification, setNotification] = useState("");
   const [results, setResults] = useState([]);
+  const [isNotificationHiding, setIsNotificationHiding] = useState(false);
+  const hideTimeoutRef = useRef(null);
+  const removeTimeoutRef = useRef(null);
+
+  const VISIBLE_MS = 3000;
+  const FADE_MS = 300;
+
+  const clearHideTimers = () => {
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+    if (removeTimeoutRef.current) {
+      clearTimeout(removeTimeoutRef.current);
+      removeTimeoutRef.current = null;
+    }
+  };
+
+  const scheduleHide = (ms = VISIBLE_MS) => {
+    clearHideTimers();
+    hideTimeoutRef.current = setTimeout(() => {
+      setIsNotificationHiding(true);
+      removeTimeoutRef.current = setTimeout(() => {
+        setNotification("");
+        setIsNotificationHiding(false);
+        hideTimeoutRef.current = null;
+        removeTimeoutRef.current = null;
+      }, FADE_MS);
+    }, ms);
+  };
 
   const handleSearch = async () => {
     if (!day || !startTime || !endTime) {
       setNotification("Please select both day and time range.");
-      setTimeout(() => setNotification(""), 3000);
+      setIsNotificationHiding(false);
+      scheduleHide();
       return;
     }
 
@@ -52,7 +83,8 @@ export default function SearchPage() {
       );
     }
 
-    setTimeout(() => setNotification(""), 3000);
+    setIsNotificationHiding(false);
+    scheduleHide();
   };
 
   const handleClear = () => {
@@ -61,6 +93,8 @@ export default function SearchPage() {
     setEndTime("");
     setBuilding("");
     setResults([]);
+    clearHideTimers();
+    setIsNotificationHiding(false);
     setNotification("");
   };
 
@@ -81,8 +115,14 @@ export default function SearchPage() {
           </Link>
         </div>
 
-        {notification && (
-          <div className="notification-banner">{notification}</div>
+        {(notification || isNotificationHiding) && (
+          <div
+            className={`notification-banner ${
+              isNotificationHiding ? "notification-hide" : "notification-show"
+            }`}
+          >
+            {notification}
+          </div>
         )}
 
         <div className="search-card">
